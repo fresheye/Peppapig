@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_pure">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp">
+        <!--猪爸爸-->
+        <LinearLayout
+            android:id="@+id/dadLayout"
+            android:layout_width="120dp"
+            android:layout_height="215dp"
+            android:layout_marginTop="25dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/dadArrowImage"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/arrow"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/dadImage"
+                android:layout_below="@id/dadArrowImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clickEvent"
+                android:background="@mipmap/pig_dad"/>
+        </LinearLayout>
+        <!--佩奇-->
+        <LinearLayout
+            android:id="@+id/peppaLayout"
+            android:layout_width="160dp"
+            android:layout_height="265dp"
+            android:layout_toEndOf="@id/dadLayout"
+            android:layout_toRightOf="@id/dadLayout"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/peppaArrowImage"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/arrow"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/peppaImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clickEvent"
+                android:background="@mipmap/pig2" />
+        </LinearLayout>
+        <!--猪妈妈-->
+        <LinearLayout
+            android:id="@+id/mumLayout"
+            android:layout_width="120dp"
+            android:layout_height="215dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@id/peppaLayout"
+            android:layout_toRightOf="@id/peppaLayout"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/mumArrowImage"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/arrow"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/mumImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clickEvent"
+                android:background="@mipmap/pig_mum" />
+        </LinearLayout>
+        <!--乔治-->
+        <LinearLayout
+            android:id="@+id/georgeLayout"
+            android:layout_width="120dp"
+            android:layout_height="215dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@id/mumLayout"
+            android:layout_toRightOf="@id/mumLayout"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/georgeArrowImage"
+                android:layout_width="50dp"
+                android:layout_height="65dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@mipmap/arrow"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/georgeImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clickEvent"
+                android:background="@mipmap/pig1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/okBtn"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:background="@mipmap/ok" />
+</RelativeLayout>

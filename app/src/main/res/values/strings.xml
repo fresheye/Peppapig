@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Peppapig</string>
+    <string name="words">Nice to meet you.</string>
+    <string name="score1Num">97</string>
+    <string name="score2Num">86</string>
+    <string name="score1Text">My Score:</string>
+    <string name="score2Text">Parent\'s Score:</string>
+    <string name="listReBtnText">重新加载</string>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_pure"
+    tools:context="com.example.ilzxm.peppapig.RecordingActivity">
+
+    <!-- 角色图片 !-->
+    <ImageView
+        android:id="@+id/roleView"
+        android:layout_height="240dp"
+        android:layout_width="200dp"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <!-- 对话框及里面内容 !-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/relativeLayout"
+        android:layout_alignParentEnd="true">
+
+         对话框 !
+        <ImageView
+            android:id="@+id/dialogBoxView"
+            android:layout_width="400dp"
+            android:layout_height="140dp"
+            android:background="@mipmap/dialog_box"
+            android:layout_marginLeft="72dp"
+            android:layout_marginStart="72dp"/>
+
+        <!--声音按钮 !-->
+        <ImageButton
+            android:id="@+id/voiceBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/voice"
+            android:layout_marginLeft="450dp"
+            android:layout_marginTop="50dp"/>
+
+        <!-- 句子 !-->
+        <TextView
+            android:id="@+id/wordsText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/words"
+            android:textSize="25sp"
+            android:fontFamily="casual"
+            android:textStyle="bold"
+            android:layout_alignBottom="@+id/voiceBtn"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <!--右下角话筒和音量!-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/volumeView"
+            android:layout_width="100dp"
+            android:layout_height="250dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/volume"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageButton
+            android:id="@+id/microphoneBtn"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/microphone"
+            android:layout_marginRight="76dp"
+            android:layout_marginEnd="76dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
