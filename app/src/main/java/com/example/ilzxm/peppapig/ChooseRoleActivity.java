@@ -64,7 +64,7 @@ public class ChooseRoleActivity extends Activity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent();
-                intent.setClass(ChooseRoleActivity.this, RecordingActivity.class);
+                intent.setClass(ChooseRoleActivity.this, PlayingActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("num", num);
                 intent.putExtras(bundle);

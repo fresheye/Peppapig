@@ -8,15 +8,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 /**
  * Created by ilzxm on 2017/3/10.
  */
 
 public class TransitionActivity extends AppCompatActivity {
-    private ImageButton t1Button;
-    private ImageButton t2Button;
+    private Button t1Button;
+    private Button t2Button;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,8 +24,8 @@ public class TransitionActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
         setContentView(R.layout.activity_transition);
-        t1Button=(ImageButton)findViewById(R.id.t1_pic);
-        t2Button=(ImageButton)findViewById(R.id.t2_pic);
+        t1Button=(Button)findViewById(R.id.t1_pic);
+        t2Button=(Button)findViewById(R.id.t2_pic);
         t1Button.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v){

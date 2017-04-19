@@ -82,9 +82,9 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
 //        backgroundAlpha((float) 0.50);
         try {
             Random random=new Random();
-            String a="test";
-            String b=a+random.nextInt(2);
-            File urlFile = new File("/sdcard/"+b+".txt");
+            String a="text";
+            String b=a+random.nextInt(3);
+            File urlFile = new File("/sdcard/peppapig/text/"+b+".txt");
             InputStreamReader isr = new InputStreamReader(new FileInputStream(urlFile), "UTF-8");
             BufferedReader br = new BufferedReader(isr);
             String str = "";

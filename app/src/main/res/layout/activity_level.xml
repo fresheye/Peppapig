@@ -13,6 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="#00000000"
+        android:onClick="clickEvent1"
         android:src="@mipmap/level1" />
 
     <ImageButton
@@ -24,6 +25,7 @@
         android:layout_marginTop="10dp"
         android:background="#00000000"
         android:src="@mipmap/level2"
+        android:onClick="clickEvent1"
         android:layout_weight="0.12" />
 
 </LinearLayout>
