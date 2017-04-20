@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -76,8 +77,10 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(UlikeShareConst.LOGIN_URL);
                 //依据服务端返回的result来处理，如果为200，则跳转到欢迎界面
                 if (loginResult.contains("200")){
-                    Intent welcomeActivity = new Intent(LoginActivity.this,LevelActivity.class);
-                    startActivity(welcomeActivity);
+                    Intent levelActivity = new Intent(LoginActivity.this,LevelActivity.class);
+                    levelActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(levelActivity);
+                    finish();
                 }else if (loginResult.contains("400")){
                     //反之则弹出警告框提示用户名或密码错误
                     new  AlertDialog.Builder(LoginActivity.this)

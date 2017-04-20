@@ -10,14 +10,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"/>
-    <TextView
-        android:id="@+id/test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="测试"
-        android:layout_gravity="center"
-        android:textSize="40dp"
-        />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/skip"
@@ -50,8 +42,7 @@
         app:elevation="0dp"
         android:src="@mipmap/voice"
         app:layout_anchor="@+id/videoView"
-        app:layout_anchorGravity="top|right"
-        android:visibility="invisible"/>
+        app:layout_anchorGravity="top|right" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/voice_recorder"
@@ -67,6 +58,5 @@
         app:backgroundTint="#00000000"
         app:elevation="0dp"
         app:layout_anchor="@+id/videoView"
-        app:layout_anchorGravity="bottom|right"
-        android:visibility="invisible"/>
+        app:layout_anchorGravity="bottom|right" />
 </android.support.design.widget.CoordinatorLayout>

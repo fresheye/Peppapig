@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 
 public class RegisterActivity extends AppCompatActivity {
     private Button register1Button;
+    private Button rLogin;
     private ImageButton cpButton;
     private EditText editText1;
     private EditText editText2;
@@ -39,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
         setContentView(R.layout.activity_register);
         register1Button=(Button)findViewById(R.id.register1);
+        rLogin=(Button)findViewById(R.id.rlogin);
         cpButton=(ImageButton)findViewById(R.id.register_picture);
         editText1=(EditText)findViewById(R.id.rpasswd1);
         editText2=(EditText)findViewById(R.id.rpasswd2);
@@ -52,12 +54,21 @@ public class RegisterActivity extends AppCompatActivity {
                     toast.show();
                     Intent intent = new Intent();
                     intent.setClass(RegisterActivity.this, LevelActivity.class);
-                    RegisterActivity.this.startActivity(intent);}
+                    RegisterActivity.this.startActivity(intent);
+                    finish();}
                else{
                     Toast toast=Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }
+        });
+        rLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                    Intent intent = new Intent();
+                    intent.setClass(RegisterActivity.this, LoginActivity.class);
+                    RegisterActivity.this.startActivity(intent);
+                    finish();}
         });
         cpButton.setOnClickListener(new View.OnClickListener(){
             @Override

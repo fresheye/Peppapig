@@ -3,11 +3,15 @@ package com.example.ilzxm.peppapig;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 /**
  * Created by ilzxm on 2017/3/10.
@@ -17,6 +21,7 @@ public class LevelActivity extends AppCompatActivity {
     private ImageButton button1;
     private ImageButton button2;
     private int level_num;
+    private static boolean isExit = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,4 +70,35 @@ public class LevelActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         LevelActivity.this.startActivity(intent);
     }
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
 }

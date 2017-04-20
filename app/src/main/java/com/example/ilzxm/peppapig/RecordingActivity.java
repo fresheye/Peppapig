@@ -122,7 +122,7 @@ public class RecordingActivity extends AppCompatActivity implements View.OnClick
         btnVoice();
     }
     //TODO 开始说话：
-    private void btnVoice() {
+    public void btnVoice() {
         RecognizerDialog dialog = new RecognizerDialog(this,null);
         dialog.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
         dialog.setParameter(SpeechConstant.ACCENT, "mandarin");

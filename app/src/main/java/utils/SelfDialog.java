@@ -180,4 +180,9 @@ public class SelfDialog extends Dialog {
     public interface onNextOnclickListener {
         public void onNextClick();
     }
+    @Override
+    public void onBackPressed() {
+        //TODO something
+        super.onBackPressed();
+    }
 }
