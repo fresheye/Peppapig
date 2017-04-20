@@ -14,6 +14,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import utils.SysApplication;
+
+
 /**
  * Created by hao on 2017/3/24.
  */
@@ -68,6 +71,7 @@ public class ChooseRoleActivity extends Activity {
                 Bundle bundle = new Bundle();
                 bundle.putInt("num", num);
                 intent.putExtras(bundle);
+                SysApplication.getInstance().addActivity(ChooseRoleActivity.this);
                 ChooseRoleActivity.this.startActivity(intent);
             }
         });

@@ -30,6 +30,8 @@ import org.json.JSONTokener;
 import java.util.Formatter;
 import java.util.Locale;
 
+import utils.SysApplication;
+
 import static com.example.ilzxm.peppapig.R.id.videoView;
 
 
@@ -68,6 +70,7 @@ public class PlayingActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(PlayingActivity.this, ScoreActivity.class);
+                SysApplication.getInstance().addActivity(PlayingActivity.this);
                 PlayingActivity.this.startActivity(intent);
             }
         });

@@ -10,6 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import utils.SysApplication;
+
 /**
  * Created by ilzxm on 2017/3/10.
  */
@@ -31,6 +33,7 @@ public class TransitionActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(TransitionActivity.this, PlayerActivity.class);
+                SysApplication.getInstance().addActivity(TransitionActivity.this);
                 TransitionActivity.this.startActivity(intent);
             }
         });
@@ -39,6 +42,7 @@ public class TransitionActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(TransitionActivity.this, ChooseRoleActivity.class);
+                SysApplication.getInstance().addActivity(TransitionActivity.this);
                 TransitionActivity.this.startActivity(intent);
             }
         });

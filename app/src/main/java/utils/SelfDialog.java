@@ -3,10 +3,14 @@ package utils;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ilzxm.peppapig.R;
 
@@ -15,6 +19,7 @@ import com.example.ilzxm.peppapig.R;
  */
 
 public class SelfDialog extends Dialog {
+    private static boolean isExit = false;
     private ImageButton menuBtn;//菜单按钮
     private ImageButton backBtn;//返回按钮
     private ImageButton nextBtn;//下一关按钮
@@ -180,9 +185,33 @@ public class SelfDialog extends Dialog {
     public interface onNextOnclickListener {
         public void onNextClick();
     }
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
     @Override
-    public void onBackPressed() {
-        //TODO something
-        super.onBackPressed();
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getContext(), "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else{
+            SysApplication.getInstance().exit();
+        }
     }
 }

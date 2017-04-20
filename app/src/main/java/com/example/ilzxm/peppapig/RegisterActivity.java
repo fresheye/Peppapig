@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 
+import utils.SysApplication;
+
 /**
  * Created by ilzxm on 2017/3/23.
  */
@@ -43,23 +45,16 @@ public class RegisterActivity extends AppCompatActivity {
         rLogin=(Button)findViewById(R.id.rlogin);
         cpButton=(ImageButton)findViewById(R.id.register_picture);
         editText1=(EditText)findViewById(R.id.rpasswd1);
-        editText2=(EditText)findViewById(R.id.rpasswd2);
         pwd1=editText1.getText().toString();
-        pwd2=editText2.getText().toString();
         register1Button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if(pwd1.equals(pwd2))
-                { Toast toast=Toast.makeText(getApplicationContext(), "注册成功，进入游戏", Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(), "注册成功，进入游戏", Toast.LENGTH_SHORT);
                     toast.show();
                     Intent intent = new Intent();
                     intent.setClass(RegisterActivity.this, LevelActivity.class);
+                    SysApplication.getInstance().addActivity(RegisterActivity.this);
                     RegisterActivity.this.startActivity(intent);
-                    finish();}
-               else{
-                    Toast toast=Toast.makeText(getApplicationContext(), "密码不一致", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
             }
         });
         rLogin.setOnClickListener(new View.OnClickListener(){

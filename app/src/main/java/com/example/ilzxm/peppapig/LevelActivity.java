@@ -13,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import utils.SysApplication;
+
 /**
  * Created by ilzxm on 2017/3/10.
  */
@@ -68,6 +70,7 @@ public class LevelActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt("level_num", level_num);
         intent.putExtras(bundle);
+        SysApplication.getInstance().addActivity(LevelActivity.this);
         LevelActivity.this.startActivity(intent);
     }
 
@@ -88,16 +91,15 @@ public class LevelActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    private void exit() {
+    public void exit() {
         if (!isExit) {
             isExit = true;
             Toast.makeText(getApplicationContext(), "再按一次退出程序",
                     Toast.LENGTH_SHORT).show();
             // 利用handler延迟发送更改状态信息
             mHandler.sendEmptyMessageDelayed(0, 2000);
-        } else {
-            finish();
-            System.exit(0);
+        } else{
+            SysApplication.getInstance().exit();
         }
     }
 

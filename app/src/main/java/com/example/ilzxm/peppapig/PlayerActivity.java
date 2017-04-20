@@ -13,6 +13,8 @@ import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import utils.SysApplication;
+
 import static com.example.ilzxm.peppapig.R.id.videoView;
 
 /**
@@ -42,6 +44,7 @@ public class PlayerActivity extends AppCompatActivity {
             {
                 Intent intent = new Intent();
                 intent.setClass(PlayerActivity.this, ChooseRoleActivity.class);
+                SysApplication.getInstance().addActivity(PlayerActivity.this);
                 PlayerActivity.this.startActivity(intent);
             }
         });
@@ -51,6 +54,7 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(PlayerActivity.this, ChooseRoleActivity.class);
+                SysApplication.getInstance().addActivity(PlayerActivity.this);
                 PlayerActivity.this.startActivity(intent);
             }
         });

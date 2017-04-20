@@ -15,6 +15,7 @@ import android.widget.EditText;
 import java.util.HashMap;
 
 import utils.HttpPostUrl;
+import utils.SysApplication;
 import utils.UlikeShareConst;
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,8 +35,8 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                SysApplication.getInstance().addActivity(LoginActivity.this);
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -79,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.contains("200")){
                     Intent levelActivity = new Intent(LoginActivity.this,LevelActivity.class);
                     levelActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    SysApplication.getInstance().addActivity(LoginActivity.this);
                     startActivity(levelActivity);
-                    finish();
                 }else if (loginResult.contains("400")){
                     //反之则弹出警告框提示用户名或密码错误
                     new  AlertDialog.Builder(LoginActivity.this)

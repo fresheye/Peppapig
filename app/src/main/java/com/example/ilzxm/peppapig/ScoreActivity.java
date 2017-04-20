@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.util.Random;
 
 import utils.SelfDialog;
+import utils.SysApplication;
 
 
 public class ScoreActivity extends AppCompatActivity{
@@ -75,6 +76,7 @@ public class ScoreActivity extends AppCompatActivity{
             public void onMenuClick() {
                 Intent intent = new Intent();
                 intent.setClass(ScoreActivity.this, LevelActivity.class);
+                SysApplication.getInstance().addActivity(ScoreActivity.this);
                 ScoreActivity.this.startActivity(intent);
                 selfDialog.dismiss();
             }
@@ -112,5 +114,10 @@ public class ScoreActivity extends AppCompatActivity{
 //                break;
 //        }
 //    }
+private void turn_page(){
+    Intent intent = new Intent();
+    intent.setClass(ScoreActivity.this, LevelActivity.class);
+    ScoreActivity.this.startActivity(intent);
+}
 
 }
