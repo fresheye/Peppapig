@@ -17,7 +17,7 @@ import utils.SysApplication;
  * Created by ilzxm on 2017/3/10.
  */
 
-public class TransitionActivity extends AppCompatActivity {
+public class PlayModeActivity extends AppCompatActivity {
     private Button t1Button;
     private Button t2Button;
     private TextView tLevel_num;
@@ -29,7 +29,7 @@ public class TransitionActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
-        setContentView(R.layout.activity_transition);
+        setContentView(R.layout.activity_play_mode);
         bundle=this.getIntent().getExtras();
         level_num = bundle.getInt("num");
         t1Button=(Button)findViewById(R.id.t1_pic);
@@ -40,18 +40,20 @@ public class TransitionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent intent = new Intent();
-                intent.setClass(TransitionActivity.this, PlayerActivity.class);
-                SysApplication.getInstance().addActivity(TransitionActivity.this);
-                TransitionActivity.this.startActivity(intent);
+                intent.setClass(PlayModeActivity.this, TransitionActivity.class);
+                bundle.putInt("num", level_num);
+                intent.putExtras(bundle);
+                SysApplication.getInstance().addActivity(PlayModeActivity.this);
+                PlayModeActivity.this.startActivity(intent);
             }
         });
         t2Button.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent();
-                intent.setClass(TransitionActivity.this, ChooseRoleActivity.class);
-                SysApplication.getInstance().addActivity(TransitionActivity.this);
-                TransitionActivity.this.startActivity(intent);
+//                Intent intent = new Intent();
+//                intent.setClass(PlayModeActivity.this, ChooseRoleActivity.class);
+//                SysApplication.getInstance().addActivity(PlayModeActivity.this);
+//                PlayModeActivity.this.startActivity(intent);
             }
         });
     }

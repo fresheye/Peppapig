@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/bg_pig"
-    android:weightSum="1">
-
-    <ImageButton
-        android:id="@+id/level1"
-        android:layout_width="145dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="#00000000"
-        android:onClick="clickEvent1"
-        android:src="@mipmap/level1" />
-
-    <ImageButton
-        android:id="@+id/level2"
-        android:layout_width="136dp"
-        android:layout_height="106dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="#00000000"
-        android:src="@mipmap/level2"
-        android:onClick="clickEvent1"
-        android:layout_weight="0.12" />
-
-</LinearLayout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@mipmap/bg_pure"
+    >
+<GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridview"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:columnWidth="90dp"
+    android:numColumns="4"
+    android:verticalSpacing="10dp"
+    android:horizontalSpacing="10dp"
+    android:stretchMode="columnWidth"
+    android:gravity="center"
+    />
+    </LinearLayout>
