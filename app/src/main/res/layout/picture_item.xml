@@ -20,7 +20,7 @@
         />
     <ImageView
         android:id="@+id/title"
-        android:src="@mipmap/star_gray_3"
+        android:src="@mipmap/star_yellow_0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

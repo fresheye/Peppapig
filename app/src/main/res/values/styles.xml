@@ -20,18 +20,11 @@
         <!--是否模糊-->
         <item name="android:backgroundDimEnabled">false</item>
     </style>
-
-    <!--<style name="loading_l" parent="@android:style/Widget.ProgressBar.Small">-->
-        <!--<item name="android:indeterminateDrawable">@drawable/loading_l</item>-->
+<!--<style name="MyActivitySwitchAnimation">-->
+    <!--<item name="@android:activityOpenEnterAnimation">@anim/zoomin</item>-->
+    <!--<item name="@android:activityOpenExitAnimation">@anim/zoomout</item>-->
+    <!--<item name="@android:activityCloseEnterAnimation">@anim/zoomin</item>-->
+    <!--<item name="@android:activityCloseExitAnimation">@anim/zoomout</item>-->
     <!--</style>-->
 
-    <!--<style name="Btn">-->
-        <!--<item name="android:textSize">13.0sp</item>-->
-        <!--<item name="android:textColor">#ff57721c</item>-->
-        <!--<item name="android:background">@drawable/btn</item>-->
-        <!--<item name="android:paddingLeft">10.0dip</item>-->
-        <!--<item name="android:paddingRight">10.0dip</item>-->
-        <!--<item name="android:layout_width">wrap_content</item>-->
-        <!--<item name="android:layout_height">40.0dip</item>-->
-    <!--</style>-->
 </resources>

@@ -5,7 +5,9 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,8 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.Formatter;
 import java.util.Locale;
+import java.util.Random;
 
 import utils.SysApplication;
 
@@ -47,12 +54,21 @@ public class PlayingActivity extends AppCompatActivity {
     private ImageButton vp;
     private ImageButton vr;
     private Bundle bundle;
-    private int level_num1;
-    StringBuilder mFormatBuilder;
-    Formatter mFormatter;
-    String time;
-    int stopPosition;
-    int  currentPosition;
+    private int level_num;
+    private int next_level;
+    private int role_num;
+    private StringBuilder mFormatBuilder;
+    private Formatter mFormatter;
+    private String time;
+    private String str1;
+    private int stopPosition;
+    private int  currentPosition;
+    private static boolean isExit = false;
+    private int star_judge=0;
+    private String a="1:00:00";
+    private String b="1:00:00";
+    private String c="1:00:00";
+    private String d="1:00:00";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +86,8 @@ public class PlayingActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(PlayingActivity.this, ScoreActivity.class);
+                bundle.putInt("level_num", level_num);
+                intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(PlayingActivity.this);
                 PlayingActivity.this.startActivity(intent);
             }
@@ -84,7 +102,7 @@ public class PlayingActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                mTts.startSpeaking("这是一个测试", mTtsListener);
+                mTts.startSpeaking(str1, mTtsListener);
             }
         });
     }
@@ -94,12 +112,29 @@ public class PlayingActivity extends AppCompatActivity {
         vp=(ImageButton)findViewById(R.id.voice_play);
         vr=(ImageButton)findViewById(R.id.voice_recorder);
         bundle=this.getIntent().getExtras();
-        level_num1=1;
-        videoview.setVideoURI(Uri.parse("/sdcard/peppapig/video/video"+level_num1+".avi"));
+        level_num = bundle.getInt("level_num");
+        role_num = bundle.getInt("role_num");
+        videoview.setVideoURI(Uri.parse("/sdcard/peppapig/video/video"+level_num+".avi"));
         mFormatBuilder = new StringBuilder();
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
         SpeechUtility.createUtility(this, SpeechConstant.APPID + "=586da44a");
         mTts = SpeechSynthesizer.createSynthesizer(this, null);
+        try {
+            Random random=new Random();
+            String a="text";
+            String b=a+random.nextInt(3);
+            File urlFile = new File("/sdcard/peppapig/text/"+b+".txt");
+            InputStreamReader isr = new InputStreamReader(new FileInputStream(urlFile), "UTF-8");
+            BufferedReader br = new BufferedReader(isr);
+            String str = "";
+            String mimeTypeLine = null ;
+            while ((mimeTypeLine = br.readLine()) != null) {
+                str = str+mimeTypeLine;
+            }
+            str1=str;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         set_mTts();
     }
     private String stringForTime(int timeMs) {
@@ -120,17 +155,30 @@ public class PlayingActivity extends AppCompatActivity {
     public void timeToPlay(String str){
         vp.setVisibility(View.INVISIBLE);
         vr.setVisibility(View.INVISIBLE);
-        switch (str){
-            case "01:00":
+        GameTime();
+        if(str.equals(a))
+        {
+            onPause();
+            vp.setVisibility(View.VISIBLE);
+            vr.setVisibility(View.VISIBLE);
+        }
+        if(str.equals(b))
+        {
                 onPause();
                 vp.setVisibility(View.VISIBLE);
                 vr.setVisibility(View.VISIBLE);
-                break;
-            case "02:00":
+        }
+        if(str.equals(c))
+        {
                 onPause();
                 vp.setVisibility(View.VISIBLE);
                 vr.setVisibility(View.VISIBLE);
-                break;
+        }
+        if(str.equals(d))
+        {
+                onPause();
+                vp.setVisibility(View.VISIBLE);
+                vr.setVisibility(View.VISIBLE);
         }
     }
 
@@ -217,6 +265,26 @@ public class PlayingActivity extends AppCompatActivity {
 
     }
 
+    public void GameTime() {
+        switch (role_num) {
+            case 1:
+                a="00:30";
+                b="01:00";
+                break;
+            case 2:
+                a="01:30";
+                b="02:00";
+                break;
+            case 3:
+                a="02:30";
+                b="03:00";
+                break;
+            case 4:
+                a="03:30";
+                b="04:00";
+                break;
+        }
+    }
     private SynthesizerListener mTtsListener = new SynthesizerListener() {
         // 缓冲进度回调，arg0为缓冲进度，arg1为缓冲音频在文本中开始的位置，arg2为缓冲音频在文本中结束的位置，arg3为附加信息
         @Override
@@ -261,6 +329,40 @@ public class PlayingActivity extends AppCompatActivity {
         }
         public void onEvent(int arg0, int arg1, int arg2, Bundle arg3) {}
     };
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            isExit = false;
+        }
+    };
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toast.makeText(getApplicationContext(), "再按一次回到选关界面",
+                    Toast.LENGTH_SHORT).show();
+            // 利用handler延迟发送更改状态信息
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else{
+            Intent intent = new Intent();
+            intent.setClass(PlayingActivity.this, LevelActivity.class);
+            Bundle bundle1=new Bundle();
+            bundle1.putInt("star_judge", star_judge);
+            intent.putExtras(bundle1);
+            SysApplication.getInstance().addActivity(PlayingActivity.this);
+            PlayingActivity.this.startActivity(intent);
+        }
+    }
     @Override
     protected void onDestroy() {
         mTts.stopSpeaking();

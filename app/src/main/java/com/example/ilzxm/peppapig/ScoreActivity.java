@@ -23,7 +23,10 @@ public class ScoreActivity extends AppCompatActivity{
     private int score2;
     private int star1;
     private int star2;
-    private int num1;
+    private int level_num;
+    private int star_num;
+    private int judge=1;
+    private int star_judge=1;
     private Bundle bundle;
 
     @Override
@@ -34,8 +37,8 @@ public class ScoreActivity extends AppCompatActivity{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
         setContentView(R.layout.activity_score);
         init();
-//        bundle=this.getIntent().getExtras();
-//        num1 = bundle.getInt("num");
+        bundle=this.getIntent().getExtras();
+        level_num= bundle.getInt("level_num");
     }
 
     private void init() {
@@ -53,6 +56,7 @@ public class ScoreActivity extends AppCompatActivity{
         else if (score2 < 70 && score2 >= 55) star2 = 1;
         else star2 = 0;
         scoreDialog(score1,star1);
+        star_num=star1;
     }
     /**
      * 设置屏幕的背景透明度
@@ -76,6 +80,35 @@ public class ScoreActivity extends AppCompatActivity{
             public void onMenuClick() {
                 Intent intent = new Intent();
                 intent.setClass(ScoreActivity.this, LevelActivity.class);
+                bundle.putInt("level_num", level_num);
+                bundle.putInt("star_num", star_num);
+                bundle.putInt("star_judge", star_judge);
+                intent.putExtras(bundle);
+                SysApplication.getInstance().addActivity(ScoreActivity.this);
+                ScoreActivity.this.startActivity(intent);
+                selfDialog.dismiss();
+            }
+        });
+        selfDialog.setBackOnclickListener(new SelfDialog.onBackOnclickListener() {
+            @Override
+            public void onBackClick() {
+                Intent intent = new Intent();
+                intent.setClass(ScoreActivity.this, PlayingActivity.class);
+                bundle.putInt("level_num", level_num);
+                intent.putExtras(bundle);
+                SysApplication.getInstance().addActivity(ScoreActivity.this);
+                ScoreActivity.this.startActivity(intent);
+                selfDialog.dismiss();
+            }
+        });
+        selfDialog.setNextOnclickListener(new SelfDialog.onNextOnclickListener() {
+            @Override
+            public void onNextClick() {
+                Intent intent = new Intent();
+                intent.setClass(ScoreActivity.this, PlayModeActivity.class);
+                bundle.putInt("level_num", level_num);
+                bundle.putInt("judge", judge);
+                intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(ScoreActivity.this);
                 ScoreActivity.this.startActivity(intent);
                 selfDialog.dismiss();

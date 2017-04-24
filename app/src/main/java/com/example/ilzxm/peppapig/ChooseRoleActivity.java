@@ -35,7 +35,9 @@ public class ChooseRoleActivity extends Activity {
     private ImageView peppaImage;//佩奇图片
     private ImageView georgeImage;//乔治图片
     private ImageButton okBtn;//确认按钮
-    private int num;
+    private Bundle bundle;
+    private int role_num;
+    private int level_num;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +45,8 @@ public class ChooseRoleActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
-
+        bundle=this.getIntent().getExtras();
+        level_num = bundle.getInt("level_num");
         setContentView(R.layout.activity_choose_role);
         init();
     }
@@ -68,8 +71,8 @@ public class ChooseRoleActivity extends Activity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(ChooseRoleActivity.this, PlayingActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("num", num);
+                bundle.putInt("level_num", level_num);
+                bundle.putInt("role_num", role_num);
                 intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(ChooseRoleActivity.this);
                 ChooseRoleActivity.this.startActivity(intent);
@@ -110,7 +113,7 @@ public class ChooseRoleActivity extends Activity {
         //对应箭头显示，布局变大
         switch (v.getId()) {
             case R.id.dadImage:
-                num=1;
+                role_num=1;
                 dadArrowImage.setVisibility(View.VISIBLE);//箭头可见
 //                LinearLayout.LayoutParams lParams = (LinearLayout.LayoutParams) dadImage.getLayoutParams();
 //                //dadImage.getLayoutParams();
@@ -119,15 +122,15 @@ public class ChooseRoleActivity extends Activity {
 //                dadImage.setLayoutParams(lParams);
                 break;
             case R.id.mumImage:
-                num=2;
+                role_num=2;
                 mumArrowImage.setVisibility(View.VISIBLE);
                 break;
             case R.id.peppaImage:
-                num=3;
+                role_num=3;
                 peppaArrowImage.setVisibility(View.VISIBLE);
                 break;
             case R.id.georgeImage:
-                num=4;
+                role_num=4;
                 georgeArrowImage.setVisibility(View.VISIBLE);
                 break;
         }

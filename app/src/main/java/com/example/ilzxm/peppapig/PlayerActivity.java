@@ -25,7 +25,7 @@ public class PlayerActivity extends AppCompatActivity {
     private VideoView videoview;
     private ImageButton skip;
     private Bundle bundle;
-    private int level_num1;
+    private int level_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,8 @@ public class PlayerActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(PlayerActivity.this, ChooseRoleActivity.class);
+                bundle.putInt("level_num", level_num);
+                intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(PlayerActivity.this);
                 PlayerActivity.this.startActivity(intent);
             }
@@ -63,8 +65,8 @@ public class PlayerActivity extends AppCompatActivity {
     private void init() {
         videoview = (VideoView) findViewById(videoView);
         bundle=this.getIntent().getExtras();
-        level_num1=1;
-        videoview.setVideoURI(Uri.parse("/sdcard/peppapig/video/video"+level_num1+".avi"));
+        level_num = bundle.getInt("level_num");
+        videoview.setVideoURI(Uri.parse("/sdcard/peppapig/video/video"+level_num+".avi"));
     }
 
 }

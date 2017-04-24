@@ -24,7 +24,6 @@
         android:id ="@+id/save_password"
         android:layout_width ="wrap_content"
         android:layout_height ="wrap_content"
-        android:checked ="true"
         android:drawablePadding ="4.0dip"
         android:text = "记住密码"
         android:textColor ="#ffffffff"

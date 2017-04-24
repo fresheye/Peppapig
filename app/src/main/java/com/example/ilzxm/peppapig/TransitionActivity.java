@@ -31,7 +31,7 @@ public class TransitionActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
         setContentView(R.layout.activity_transition);
         bundle=this.getIntent().getExtras();
-        level_num = bundle.getInt("num");
+        level_num = bundle.getInt("level_num");
         t1Button=(Button)findViewById(R.id.t1_pic);
         t2Button=(Button)findViewById(R.id.t2_pic);
         tLevel_num=(TextView)findViewById(R.id.level_num);
@@ -41,6 +41,8 @@ public class TransitionActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(TransitionActivity.this, PlayerActivity.class);
+                bundle.putInt("level_num", level_num);
+                intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(TransitionActivity.this);
                 TransitionActivity.this.startActivity(intent);
             }
@@ -50,6 +52,8 @@ public class TransitionActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent intent = new Intent();
                 intent.setClass(TransitionActivity.this, ChooseRoleActivity.class);
+                bundle.putInt("level_num", level_num);
+                intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(TransitionActivity.this);
                 TransitionActivity.this.startActivity(intent);
             }

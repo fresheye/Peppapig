@@ -24,6 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private Button mLoginBtn;         //登录按钮
     private String loginResult;
     private Button registerButton;//存储服务端返回的结果
+    private int star_judge;
+    private Bundle bundle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

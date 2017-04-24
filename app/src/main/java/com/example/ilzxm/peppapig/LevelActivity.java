@@ -27,13 +27,17 @@ import utils.SysApplication;
 
 public class LevelActivity extends Activity {
     private GridView gridView;
+    private Bundle bundle1;
     private static boolean isExit = false;
+    private int judge=0;
+    private int star_judge=0;
     private int level_num;
+    private int star_num;
     //图片的文字标题
     private int[] titles = new int[]{
-            R.mipmap.star_gray_3, R.mipmap.star_gray_3, R.mipmap.star_gray_3,
-            R.mipmap.star_gray_3, R.mipmap.star_gray_3, R.mipmap.star_gray_3,
-            R.mipmap.star_gray_3, R.mipmap.star_gray_3, R.mipmap.star_gray_3
+            R.mipmap.star_yellow_3, R.mipmap.star_yellow_2, R.mipmap.star_yellow_2,
+            R.mipmap.star_yellow_1, R.mipmap.star_yellow_1, R.mipmap.star_yellow_0,
+            R.mipmap.star_yellow_0, R.mipmap.star_yellow_0, R.mipmap.star_yellow_0
     };
     //图片ID数组
     private int[] images = new int[]{
@@ -41,7 +45,23 @@ public class LevelActivity extends Activity {
             R.mipmap.pic_4, R.mipmap.pic_5, R.mipmap.pic_6,
             R.mipmap.pic_7, R.mipmap.pic_8, R.mipmap.pic_9
     };
-
+private void count_star(int i,int j)
+{
+    switch(j){
+        case 0:
+            titles[i]=R.mipmap.star_yellow_0;
+            break;
+        case 1:
+            titles[i]=R.mipmap.star_yellow_1;
+            break;
+        case 2:
+            titles[i]=R.mipmap.star_yellow_2;
+            break;
+        case 3:
+            titles[i]=R.mipmap.star_yellow_3;
+            break;
+    }
+}
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +69,14 @@ public class LevelActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
         setContentView(R.layout.activity_level);
+        bundle1=this.getIntent().getExtras();
+        star_judge= bundle1.getInt("star_judge");
+        if(star_judge==1)
+        {
+            level_num= bundle1.getInt("level_num")-1;
+            star_num= bundle1.getInt("star_num");
+            count_star(level_num,star_num);
+        }
         gridView = (GridView) findViewById(R.id.gridview);
         PictureAdapter adapter = new PictureAdapter(titles, images, this);
         gridView.setAdapter(adapter);
@@ -57,8 +85,9 @@ public class LevelActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent();
                 intent.setClass(LevelActivity.this, PlayModeActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("num", position+1);
+                Bundle bundle=new Bundle();
+                bundle.putInt("level_num", position+1);
+                bundle.putInt("judge", judge);
                 intent.putExtras(bundle);
                 SysApplication.getInstance().addActivity(LevelActivity.this);
                 LevelActivity.this.startActivity(intent);
