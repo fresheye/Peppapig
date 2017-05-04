@@ -1,102 +1,136 @@
 package com.example.ilzxm.peppapig;
 
-
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import java.util.HashMap;
+import java.util.List;
 
-import utils.HttpPostUrl;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.FindListener;
+import utils.NetUtil;
 import utils.SysApplication;
-import utils.UlikeShareConst;
 
-public class LoginActivity extends AppCompatActivity {
-    private EditText mTextUserName;   //存储输入的用户名
-    private EditText mTextPsw;        //存储输入的密码
-    private Button mLoginBtn;         //登录按钮
-    private String loginResult;
-    private Button registerButton;//存储服务端返回的结果
-    private int star_judge;
-    private Bundle bundle;
+import static com.example.ilzxm.peppapig.R.id.username;
 
+
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+	private EditText musername,mpassword;
+	private Button mlogin,mregi;
+	private SharedPreferences sp;
+	private CheckBox rem_pwd;
+	private int star_judge=0;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
+		setContentView(R.layout.activity_login);
+		Bmob.initialize(this, "8f8cee2e375eb19fb43014310fbf7fa2");
+        sp = this.getSharedPreferences("userInfo", Context.MODE_WORLD_READABLE);
+        musername=(EditText) findViewById(username);
+		mpassword=(EditText) findViewById(R.id.passwd);
+		mlogin=(Button) findViewById(R.id.login);
+		mregi=(Button) findViewById(R.id.register);
+        rem_pwd=(CheckBox)findViewById(R.id.save_password);
+        mlogin.setOnClickListener(this);
+        mregi.setOnClickListener(this);
+		rem_pwd.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (rem_pwd.isChecked()) {
+					sp.edit().putBoolean("ISCHECK", true).commit();
+				}else {
+					sp.edit().putBoolean("ISCHECK", false).commit();
+				}
+
+			}
+		});
+		if(sp.getBoolean("ISCHECK", false))
+		{
+			//设置默认是记录密码状态
+			rem_pwd.setChecked(true);
+			musername.setText(sp.getString("USER_NAME", ""));
+			mpassword.setText(sp.getString("PASSWORD", ""));
+		}
+	}
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//设置成全屏模式
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//强制为横屏
-        setContentView(R.layout.activity_login);
-        init();
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                SysApplication.getInstance().addActivity(LoginActivity.this);
-                startActivity(intent);
+    public void onClick(View v) {
+        if (v == mregi) {
+            Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+            SysApplication.getInstance().addActivity(LoginActivity.this);
+            startActivity(intent);
+        } else {
+            boolean isNetConnected = NetUtil.isNetworkAvailable(this);
+            if(!isNetConnected){
+                Toast.makeText(LoginActivity.this, "请检查网络连接", Toast.LENGTH_LONG).show();
+                return;
             }
-        });
+            mlogin();
+        }
     }
-    void init(){
-        //初始化对象
-        mTextUserName = (EditText) this.findViewById(R.id.username);
-        mTextPsw = (EditText) this.findViewById(R.id.passwd);
-        mLoginBtn = (Button) this.findViewById(R.id.login);
-        registerButton=(Button) this.findViewById(R.id.register);
-        //增加登录按钮点击效果
-        mLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginTest();
-            }
-        });
-    }
-    //登录请求
-    void loginTest(){
-        //把网络访问的代码放在这里
-        //android 中网络访问不能在主线程中进行
-        new Thread(){
-            @Override
-            public void run()
-            {
-                //获取输入的用户名密码
-                String username = mTextUserName.getText().toString();
-                String passwd = mTextPsw.getText().toString();
-                //将用户名与密码放入hashmap中，对应的key应为服务端
-                //接收数据的变量名
-                System.out.println(username);
-                System.out.println(passwd);
-                HashMap<String,String> parameter = new HashMap<String,String>();
-                parameter.put("username",username);
-                parameter.put("encryptedPassword",passwd);
-                //调用HttpPostUrl方法发送http请求，其参数为action请求的url以及hashmap中
-                loginResult = HttpPostUrl.sendPost(UlikeShareConst.LOGIN_URL,parameter);
-                loginResult="200";
-                System.out.println(UlikeShareConst.LOGIN_URL);
-                //依据服务端返回的result来处理，如果为200，则跳转到欢迎界面
-                if (loginResult.contains("200")){
-                    Intent levelActivity = new Intent(LoginActivity.this,LevelActivity.class);
-                    levelActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    SysApplication.getInstance().addActivity(LoginActivity.this);
-                    startActivity(levelActivity);
-                }else if (loginResult.contains("400")){
-                    //反之则弹出警告框提示用户名或密码错误
-                    new  AlertDialog.Builder(LoginActivity.this)
-                            .setTitle("警告" )
-                            .setMessage("用户名或密码错误" )
-                            .setPositiveButton("确认" ,  null )
-                            .show();
-                    return;
+
+	//登录点击
+	public void mlogin(){
+		String username=musername.getText().toString();
+		String password=mpassword.getText().toString();
+		if(username.equals("")||password.equals("")){
+			Toast.makeText(this, "帐号或密码不能为空", Toast.LENGTH_LONG).show();
+			return;
+		}
+		BmobQuery<Users> query=new BmobQuery<Users>();
+		query.addWhereEqualTo("username", username);
+		query.addWhereEqualTo("password", password);
+		query.findObjects(new FindListener<Users>() {
+
+			@Override
+			public void done(List<Users> arg0, BmobException e) {
+				// TODO Auto-generated method stub
+				if(e==null){
+				String gusername=arg0.get(0).getUsername().toString();
+				String gpassword=arg0.get(0).getPassword().toString();
+				String username=musername.getText().toString();
+				String password=mpassword.getText().toString();
+				if(gusername.equals(username)&&gpassword.equals(password))
+				{
+                    if(rem_pwd.isChecked())
+                {
+                    //记住用户名、密码、
+                    Editor editor = sp.edit();
+                    editor.putString("USER_NAME", username);
+                    editor.putString("PASSWORD",password);
+                    editor.commit();
                 }
-            }
-        }.start();
-    }
-
-
+					Intent seccess = new Intent();
+					seccess.setClass(LoginActivity.this, LevelActivity.class);
+                    Bundle bundle1=new Bundle();
+					bundle1.putInt("star_judge", star_judge);
+					seccess.putExtras(bundle1);
+					SysApplication.getInstance().addActivity(LoginActivity.this);
+					startActivity(seccess);
+                    Toast.makeText(LoginActivity.this, "欢迎", Toast.LENGTH_LONG).show();
+				}
+				}
+                else{
+                    Toast.makeText(LoginActivity.this, "账号或密码错误", Toast.LENGTH_LONG).show();
+                }
+			}
+		});
+	}
 }

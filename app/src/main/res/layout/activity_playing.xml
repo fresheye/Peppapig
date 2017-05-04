@@ -58,5 +58,6 @@
         app:backgroundTint="#00000000"
         app:elevation="0dp"
         app:layout_anchor="@+id/videoView"
-        app:layout_anchorGravity="bottom|right" />
+        app:layout_anchorGravity="bottom|right"
+        android:visibility="invisible"/>
 </android.support.design.widget.CoordinatorLayout>

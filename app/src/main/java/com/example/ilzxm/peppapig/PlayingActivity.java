@@ -153,7 +153,7 @@ public class PlayingActivity extends AppCompatActivity {
     }
 
     public void timeToPlay(String str){
-        vp.setVisibility(View.INVISIBLE);
+        vp .setVisibility(View.INVISIBLE);
         vr.setVisibility(View.INVISIBLE);
         GameTime();
         if(str.equals(a))
